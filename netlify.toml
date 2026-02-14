@@ -1,5 +1,5 @@
 [build]
-  command = "flutter build web --base-href "/""
+  command = "flutter build web --base-href '/'"
   publish = ""
 
 [[redirects]]
