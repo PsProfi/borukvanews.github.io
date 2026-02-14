@@ -17,7 +17,7 @@ class PhotoCarouselApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         textTheme: GoogleFonts.tapestryTextTheme(Theme.of(context).textTheme),
       ),
-      home: const MainPage(),
+      home: const PhotoCarouselScreen(),
       debugShowCheckedModeBanner: false,
     );
   }
