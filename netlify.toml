@@ -1,6 +1,11 @@
 [build]
-  command = "flutter build web --base-href '/'"
-  publish = ""
+  command = """
+  git clone https://github.com/flutter/flutter.git -b stable --depth 1
+  export PATH="$PATH:`pwd`/flutter/bin"
+  flutter pub get
+  flutter build web
+  """
+  publish = "build/web"
 
 [[redirects]]
   from = "/*"
