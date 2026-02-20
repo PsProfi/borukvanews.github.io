@@ -1,27 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-void main() {
-  runApp(const PhotoCarouselApp());
-}
-
-class PhotoCarouselApp extends StatelessWidget {
-  const PhotoCarouselApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Borukva News',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-        textTheme: GoogleFonts.tapestryTextTheme(Theme.of(context).textTheme),
-      ),
-      home: const PhotoCarouselScreen(),
-      debugShowCheckedModeBanner: false,
-    );
-  }
-}
-
 // ─── Outlined icon button helper ─────────────────────────────────────────────
 
 class OutlinedIconBtn extends StatelessWidget {
@@ -38,17 +17,43 @@ class OutlinedIconBtn extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Container(
-        decoration: BoxDecoration(
-          border: Border.all(color: color, width: 1.8),
-          borderRadius: BorderRadius.circular(24),
-          color: Colors.transparent,
-        ),
-        padding: const EdgeInsets.all(8),
-        child: Icon(icon, color: color, size: 24),
+    return OutlinedButton(
+      onPressed: onTap,
+      style: OutlinedButton.styleFrom(
+        overlayColor: Colors.white,
+        side: BorderSide(color: color, width: 2),
+        shape: CircleBorder(),
+        minimumSize: const Size(50, 50),
       ),
+
+      child: Icon(icon, color: color, size: 24),
+    );
+  }
+}
+
+class TextBtn extends StatelessWidget {
+  final Text text;
+  final VoidCallback onTap;
+  final Color color;
+
+  const TextBtn({
+    super.key,
+    required this.text,
+    required this.onTap,
+    this.color = Colors.white,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return OutlinedButton(
+      onPressed: onTap,
+      style: OutlinedButton.styleFrom(
+        overlayColor: Colors.white,
+        side: BorderSide(color: color, width: 2),
+        shape: CircleBorder(),
+        minimumSize: const Size(50, 50),
+      ),
+      child: text,
     );
   }
 }
@@ -123,8 +128,11 @@ class _FullScreenViewerState extends State<FullScreenViewer> {
           Positioned(
             top: MediaQuery.of(context).padding.top + 12,
             right: 16,
-            child: OutlinedIconBtn(
-              icon: Icons.close,
+            child: TextBtn(
+              text: Text(
+                "x",
+                style: TextStyle(fontFamily: "Minecraft", color: Colors.white),
+              ),
               onTap: () => Navigator.of(context).pop(_currentIndex),
             ),
           ),
@@ -139,8 +147,14 @@ class _FullScreenViewerState extends State<FullScreenViewer> {
                 duration: const Duration(milliseconds: 200),
                 child: IgnorePointer(
                   ignoring: !_hasPrev,
-                  child: OutlinedIconBtn(
-                    icon: Icons.arrow_back_ios,
+                  child: TextBtn(
+                    text: Text(
+                      "<",
+                      style: TextStyle(
+                        fontFamily: "Minecraft",
+                        color: Colors.white,
+                      ),
+                    ),
                     onTap: () => _go(_currentIndex - 1),
                   ),
                 ),
@@ -159,8 +173,14 @@ class _FullScreenViewerState extends State<FullScreenViewer> {
                 duration: const Duration(milliseconds: 200),
                 child: IgnorePointer(
                   ignoring: !_hasNext,
-                  child: OutlinedIconBtn(
-                    icon: Icons.arrow_forward_ios,
+                  child: TextBtn(
+                    text: Text(
+                      ">",
+                      style: TextStyle(
+                        fontFamily: "Minecraft",
+                        color: Colors.white,
+                      ),
+                    ),
                     onTap: () => _go(_currentIndex + 1),
                   ),
                 ),
@@ -175,24 +195,24 @@ class _FullScreenViewerState extends State<FullScreenViewer> {
 
 // ─── Main carousel screen ─────────────────────────────────────────────────────
 
-class PhotoCarouselScreen extends StatefulWidget {
-  const PhotoCarouselScreen({super.key});
+class FirstScreen extends StatefulWidget {
+  const FirstScreen({super.key});
 
   @override
-  State<PhotoCarouselScreen> createState() => _PhotoCarouselScreenState();
+  State<FirstScreen> createState() => _FirstScreenState();
 }
 
-class _PhotoCarouselScreenState extends State<PhotoCarouselScreen> {
+class _FirstScreenState extends State<FirstScreen> {
   final PageController _pageController = PageController();
   int _currentIndex = 0;
 
   final List<String> _photos = [
-    'assets/title_1.png',
-    'assets/page_1.png',
-    'assets/page_2.png',
-    'assets/page_3.png',
-    'assets/page_4.png',
-    'assets/last_1.png',
+    'assets/pictures/09_02-14_02/title_1.png',
+    'assets/pictures/09_02-14_02/page_1.png',
+    'assets/pictures/09_02-14_02/page_2.png',
+    'assets/pictures/09_02-14_02/page_3.png',
+    'assets/pictures/09_02-14_02/page_4.png',
+    'assets/pictures/09_02-14_02/last_1.png',
   ];
 
   bool get _hasPrev => _currentIndex > 0;
@@ -238,6 +258,7 @@ class _PhotoCarouselScreenState extends State<PhotoCarouselScreen> {
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         backgroundColor: Colors.transparent,
         elevation: 0,
         title: Text(
@@ -252,7 +273,7 @@ class _PhotoCarouselScreenState extends State<PhotoCarouselScreen> {
         fit: StackFit.expand,
         children: [
           // Background
-          Image.asset('assets/bg/backg.png', fit: BoxFit.cover),
+          Image.asset('assets/pictures/bg/backg.png', fit: BoxFit.cover),
 
           // Content pushed below AppBar
           Column(
@@ -304,8 +325,14 @@ class _PhotoCarouselScreenState extends State<PhotoCarouselScreen> {
                     duration: const Duration(milliseconds: 200),
                     child: IgnorePointer(
                       ignoring: !_hasPrev,
-                      child: OutlinedIconBtn(
-                        icon: Icons.arrow_back_ios,
+                      child: TextBtn(
+                        text: Text(
+                          "<",
+                          style: TextStyle(
+                            fontFamily: "Minecraft",
+                            color: Colors.black,
+                          ),
+                        ),
                         color: Colors.black87,
                         onTap: _previousPhoto,
                       ),
@@ -314,10 +341,7 @@ class _PhotoCarouselScreenState extends State<PhotoCarouselScreen> {
                   const SizedBox(width: 16),
                   Text(
                     '${_currentIndex + 1} / ${_photos.length}',
-                    style: GoogleFonts.roboto(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w500,
-                    ),
+                    style: TextStyle(fontFamily: "Minecraft"),
                   ),
                   const SizedBox(width: 16),
                   // Next — fades out on last photo
@@ -326,8 +350,14 @@ class _PhotoCarouselScreenState extends State<PhotoCarouselScreen> {
                     duration: const Duration(milliseconds: 200),
                     child: IgnorePointer(
                       ignoring: !_hasNext,
-                      child: OutlinedIconBtn(
-                        icon: Icons.arrow_forward_ios,
+                      child: TextBtn(
+                        text: Text(
+                          ">",
+                          style: TextStyle(
+                            fontFamily: "Minecraft",
+                            color: Colors.black,
+                          ),
+                        ),
                         color: Colors.black87,
                         onTap: _nextPhoto,
                       ),

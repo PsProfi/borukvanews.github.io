@@ -1,23 +1,43 @@
 import 'package:bor_nov_site/first.dart';
+import 'package:bor_nov_site/second.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:go_router/go_router.dart';
 
 void main() {
-  runApp(const PhotoCarouselApp());
+  final GoRouter router = GoRouter(
+    initialLocation: '/atRmklps',
+    routes: [
+      GoRoute(path: '/RULE34', builder: (context, state) => const MainScreen()),
+      GoRoute(
+        path: '/atRmklps',
+        builder: (context, state) => const FirstScreen(),
+      ),
+      GoRoute(path: '/', builder: (context, state) => const FirstScreen()),
+      GoRoute(
+        path: '/qizmvUxp',
+        builder: (context, state) => const SecondScreen(),
+      ),
+    ],
+  );
+
+  runApp(PhotoCarouselApp(router: router));
 }
 
 class PhotoCarouselApp extends StatelessWidget {
-  const PhotoCarouselApp({super.key});
+  final GoRouter router;
+
+  const PhotoCarouselApp({super.key, required this.router});
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp.router(
       title: 'Borukva News',
       theme: ThemeData(
         primarySwatch: Colors.blue,
         textTheme: GoogleFonts.tapestryTextTheme(Theme.of(context).textTheme),
       ),
-      home: const PhotoCarouselScreen(),
+      routerConfig: router,
       debugShowCheckedModeBanner: false,
     );
   }
@@ -39,8 +59,8 @@ class OutlinedIconBtn extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onTap,
+    return OutlinedButton(
+      onPressed: onTap,
       child: Container(
         decoration: BoxDecoration(
           border: Border.all(color: color, width: 1.8),
@@ -56,8 +76,8 @@ class OutlinedIconBtn extends StatelessWidget {
 
 // ─── Main landing page ────────────────────────────────────────────────────────
 
-class MainPage extends StatelessWidget {
-  const MainPage({super.key});
+class MainScreen extends StatelessWidget {
+  const MainScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -66,7 +86,7 @@ class MainPage extends StatelessWidget {
         fit: StackFit.expand,
         children: [
           // Background
-          Image.asset('assets/bg/backg.png', fit: BoxFit.cover),
+          Image.asset('assets/pictures/bg/backg.png', fit: BoxFit.cover),
 
           // Dark overlay for readability
           Container(color: Colors.black.withOpacity(0.35)),
@@ -99,49 +119,59 @@ class MainPage extends StatelessWidget {
                   ),
                 ),
 
-                const Spacer(flex: 2),
-
-                // Enter button
-                GestureDetector(
-                  onTap: () => Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (_) => const PhotoCarouselScreen(),
+                const SizedBox(height: 30), // Enter button
+                OutlinedButton(
+                  onPressed: () => context.go('/atRmelos'),
+                  style: OutlinedButton.styleFrom(
+                    side: const BorderSide(color: Colors.white, width: 1.8),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(40),
                     ),
-                  ),
-                  child: Container(
                     padding: const EdgeInsets.symmetric(
                       horizontal: 48,
-                      vertical: 16,
+                      vertical: 24,
                     ),
-                    decoration: BoxDecoration(
-                      border: Border.all(color: Colors.white, width: 1.8),
-                      borderRadius: BorderRadius.circular(40),
-                      color: Colors.transparent,
-                    ),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Text(
-                          '09.02-14.02',
-                          style: GoogleFonts.roboto(
-                            fontSize: 18,
-                            fontWeight: FontWeight.w500,
-                            color: Colors.white,
-                            letterSpacing: 1.2,
-                          ),
-                        ),
-                        const SizedBox(width: 10),
-                        const Icon(
-                          Icons.arrow_forward_ios,
-                          color: Colors.white,
-                          size: 18,
-                        ),
-                      ],
-                    ),
+                    foregroundColor: Colors.white,
+                  ),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: const [
+                      Text(
+                        '09.02-14.02',
+                        style: TextStyle(fontFamily: "Minecraft"),
+                      ),
+                      SizedBox(width: 10),
+                      Text(">", style: TextStyle(fontFamily: "Minecraft")),
+                    ],
                   ),
                 ),
-
-                const Spacer(flex: 1),
+                const SizedBox(height: 30), // Enter button
+                OutlinedButton(
+                  onPressed: () => context.go('/qizmvUxp'),
+                  style: OutlinedButton.styleFrom(
+                    side: const BorderSide(color: Colors.white, width: 1.8),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(40),
+                    ),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 48,
+                      vertical: 24,
+                    ),
+                    foregroundColor: Colors.white,
+                  ),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: const [
+                      Text(
+                        '15.02-21.02',
+                        style: TextStyle(fontFamily: "Minecraft"),
+                      ),
+                      SizedBox(width: 10),
+                      Text(">", style: TextStyle(fontFamily: "Minecraft")),
+                    ],
+                  ),
+                ),
+                const Spacer(flex: 2), // 👈 тепер кнопка ближче до тексту
               ],
             ),
           ),

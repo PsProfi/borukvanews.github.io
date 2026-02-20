@@ -180,14 +180,14 @@ class _FullScreenViewerState extends State<FullScreenViewer> {
 
 // ─── Main carousel screen ─────────────────────────────────────────────────────
 
-class PhotoCarouselScreen extends StatefulWidget {
-  const PhotoCarouselScreen({super.key});
+class SecondScreen extends StatefulWidget {
+  const SecondScreen({super.key});
 
   @override
-  State<PhotoCarouselScreen> createState() => _PhotoCarouselScreenState();
+  State<SecondScreen> createState() => _SecondScreenState();
 }
 
-class _PhotoCarouselScreenState extends State<PhotoCarouselScreen> {
+class _SecondScreenState extends State<SecondScreen> {
   final PageController _pageController = PageController();
   int _currentIndex = 0;
 
