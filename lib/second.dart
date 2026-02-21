@@ -192,12 +192,13 @@ class _SecondScreenState extends State<SecondScreen> {
   int _currentIndex = 0;
 
   final List<String> _photos = [
-    'assets/pictures/09_02-14_02/title_1.png',
-    'assets/pictures/09_02-14_02/page_1.png',
-    'assets/pictures/09_02-14_02/page_2.png',
-    'assets/pictures/09_02-14_02/page_3.png',
-    'assets/pictures/09_02-14_02/page_4.png',
-    'assets/pictures/09_02-14_02/last_1.png',
+    'assets/pictures/15_02-21_02/15.02-21.02.png',
+    'assets/pictures/15_02-21_02/Газета 15-21 лют стор. 1.png',
+    'assets/pictures/15_02-21_02/Газета 15-21 лют стор. 2.png',
+    'assets/pictures/15_02-21_02/Газета 15-21 лют стор. 3.png',
+    'assets/pictures/15_02-21_02/Газета 15-21 лют стор. 4.png',
+    'assets/pictures/15_02-21_02/Газета 15-21 лют стор. 5.png',
+    'assets/pictures/15_02-21_02/Газета 15-21 лют стор. 6.png',
   ];
 
   bool get _hasPrev => _currentIndex > 0;

@@ -1,3 +1,4 @@
+import 'package:bor_nov_site/empty_screen.dart';
 import 'package:bor_nov_site/first.dart';
 import 'package:bor_nov_site/second.dart';
 import 'package:flutter/material.dart';
@@ -6,16 +7,20 @@ import 'package:go_router/go_router.dart';
 
 void main() {
   final GoRouter router = GoRouter(
-    initialLocation: '/atRmklps',
+    initialLocation: '/',
     routes: [
       GoRoute(path: '/RULE34', builder: (context, state) => const MainScreen()),
       GoRoute(
         path: '/atRmklps',
         builder: (context, state) => const FirstScreen(),
       ),
-      GoRoute(path: '/', builder: (context, state) => const FirstScreen()),
+      GoRoute(path: '/', builder: (context, state) => const EmptyScreen()),
       GoRoute(
         path: '/qizmvUxp',
+        builder: (context, state) => const SecondScreen(),
+      ),
+      GoRoute(
+        path: '/pLxqnrvt',
         builder: (context, state) => const SecondScreen(),
       ),
     ],
