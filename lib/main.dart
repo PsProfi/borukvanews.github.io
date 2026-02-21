@@ -1,6 +1,7 @@
 import 'package:bor_nov_site/empty_screen.dart';
 import 'package:bor_nov_site/first.dart';
 import 'package:bor_nov_site/second.dart';
+import 'package:bor_nov_site/third.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:go_router/go_router.dart';
@@ -21,7 +22,7 @@ void main() {
       ),
       GoRoute(
         path: '/pLxqnrvt',
-        builder: (context, state) => const SecondScreen(),
+        builder: (context, state) => const ThirdScreen(),
       ),
     ],
   );
@@ -126,7 +127,7 @@ class MainScreen extends StatelessWidget {
 
                 const SizedBox(height: 30), // Enter button
                 OutlinedButton(
-                  onPressed: () => context.go('/atRmelos'),
+                  onPressed: () => context.go('/atRmklps'),
                   style: OutlinedButton.styleFrom(
                     side: const BorderSide(color: Colors.white, width: 1.8),
                     shape: RoundedRectangleBorder(
