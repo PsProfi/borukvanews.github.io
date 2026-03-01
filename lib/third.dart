@@ -192,13 +192,16 @@ class _ThirdScreenState extends State<ThirdScreen> {
   int _currentIndex = 0;
 
   final List<String> _photos = [
-    'assets/pictures/09_02-14_02/15.02-21.02.png',
-    'assets/pictures/09_02-14_02/Газета 15-21 лют стор. 1.png',
-    'assets/pictures/09_02-14_02/Газета 15-21 лют стор. 2.png',
-    'assets/pictures/09_02-14_02/Газета 15-21 лют стор. 3.png',
-    'assets/pictures/09_02-14_02/Газета 15-21 лют стор. 4.png',
-    'assets/pictures/09_02-14_02/Газета 15-21 лют стор. 5.png',
-    'assets/pictures/09_02-14_02/Газета 15-21 лют стор. 6.png',
+    'assets/pictures/22_02-28_02/22.02-28.02.png',
+    'assets/pictures/22_02-28_02/Газета 22-28 лют стор. 1.png',
+    'assets/pictures/22_02-28_02/Газета 22-28 лют стор. 2.png',
+    'assets/pictures/22_02-28_02/Газета 22-28 лют стор. 3.png',
+    'assets/pictures/22_02-28_02/Газета 22-28 лют стор. 4.png',
+    'assets/pictures/22_02-28_02/Газета 22-28 лют стор. 5.png',
+    'assets/pictures/остання стор.png',
+    'assets/pictures/22_02-28_02/Газета 22-28 лют стор. 6.png',
+    'assets/pictures/22_02-28_02/Газета 22-28 лют стор. 7.png',
+    'assets/pictures/22_02-28_02/Газета 22-28 лют стор. 8.png',
   ];
 
   bool get _hasPrev => _currentIndex > 0;

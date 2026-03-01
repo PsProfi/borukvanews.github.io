@@ -177,6 +177,32 @@ class MainScreen extends StatelessWidget {
                     ],
                   ),
                 ),
+                const SizedBox(height: 30),
+                OutlinedButton(
+                  onPressed: () => context.go('/pLxqnrvt'),
+                  style: OutlinedButton.styleFrom(
+                    side: const BorderSide(color: Colors.white, width: 1.8),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(40),
+                    ),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 48,
+                      vertical: 24,
+                    ),
+                    foregroundColor: Colors.white,
+                  ),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: const [
+                      Text(
+                        '22.02-28.02',
+                        style: TextStyle(fontFamily: "Minecraft"),
+                      ),
+                      SizedBox(width: 10),
+                      Text(">", style: TextStyle(fontFamily: "Minecraft")),
+                    ],
+                  ),
+                ),
                 const Spacer(flex: 2), // 👈 тепер кнопка ближче до тексту
               ],
             ),

@@ -34,9 +34,18 @@ flutter:
     - assets/pictures/15_02-21_02/Газета 15-21 лют стор. 3.png
     - assets/pictures/15_02-21_02/Газета 15-21 лют стор. 4.png
     - assets/pictures/15_02-21_02/Газета 15-21 лют стор. 5.png
-    - assets/pictures/15_02-21_02/Газета 15-21 лют стор. 6.png
+    - assets/pictures/остання стор.png
     - assets/sounds/puk-v-ekho.wav
     - assets/pictures/hy.jpg
+    - assets/pictures/22_02-28_02/22.02-28.02.png
+    - assets/pictures/22_02-28_02/Газета 22-28 лют стор. 1.png
+    - assets/pictures/22_02-28_02/Газета 22-28 лют стор. 2.png
+    - assets/pictures/22_02-28_02/Газета 22-28 лют стор. 3.png
+    - assets/pictures/22_02-28_02/Газета 22-28 лют стор. 4.png
+    - assets/pictures/22_02-28_02/Газета 22-28 лют стор. 5.png
+    - assets/pictures/22_02-28_02/Газета 22-28 лют стор. 6.png
+    - assets/pictures/22_02-28_02/Газета 22-28 лют стор. 7.png
+    - assets/pictures/22_02-28_02/Газета 22-28 лют стор. 8.png
 
   fonts:
     - family: Minecraft

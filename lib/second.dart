@@ -198,7 +198,7 @@ class _SecondScreenState extends State<SecondScreen> {
     'assets/pictures/15_02-21_02/Газета 15-21 лют стор. 3.png',
     'assets/pictures/15_02-21_02/Газета 15-21 лют стор. 4.png',
     'assets/pictures/15_02-21_02/Газета 15-21 лют стор. 5.png',
-    'assets/pictures/15_02-21_02/Газета 15-21 лют стор. 6.png',
+    'assets/pictures/остання стор.png',
   ];
 
   bool get _hasPrev => _currentIndex > 0;
