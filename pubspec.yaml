@@ -46,6 +46,15 @@ flutter:
     - assets/pictures/22_02-28_02/Газета 22-28 лют стор. 6.png
     - assets/pictures/22_02-28_02/Газета 22-28 лют стор. 7.png
     - assets/pictures/22_02-28_02/Газета 22-28 лют стор. 8.png
+    - assets/pictures/kchbnk/Нов руб.png
+    - assets/pictures/kchbnk/Кчбнк стор.1 .png
+    - assets/pictures/kchbnk/Кчбнк стор.2 .png
+    - assets/pictures/kchbnk/Кчбнк стор.3 .png
+    - assets/pictures/kchbnk/Кчбнк стор.4 .png
+    - assets/pictures/kchbnk/Кчбнк стор.5 .png
+    - assets/pictures/kchbnk/Кчбнк стор.6 .png
+    - assets/pictures/kchbnk/Кчбнк стор.7 .png
+    - assets/pictures/kchbnk/Кчбнк титул. .png
 
   fonts:
     - family: Minecraft

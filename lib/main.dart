@@ -1,5 +1,6 @@
 import 'package:bor_nov_site/empty_screen.dart';
 import 'package:bor_nov_site/first.dart';
+import 'package:bor_nov_site/kchbnk.dart';
 import 'package:bor_nov_site/second.dart';
 import 'package:bor_nov_site/third.dart';
 import 'package:flutter/material.dart';
@@ -24,6 +25,7 @@ void main() {
         path: '/pLxqnrvt',
         builder: (context, state) => const ThirdScreen(),
       ),
+      GoRoute(path: '/qbE34klm', builder: (context, state) => const Kchbnk()),
     ],
   );
 
@@ -198,6 +200,29 @@ class MainScreen extends StatelessWidget {
                         '22.02-28.02',
                         style: TextStyle(fontFamily: "Minecraft"),
                       ),
+                      SizedBox(width: 10),
+                      Text(">", style: TextStyle(fontFamily: "Minecraft")),
+                    ],
+                  ),
+                ),
+                SizedBox(height: 30),
+                OutlinedButton(
+                  onPressed: () => context.go('/qbE34klm'),
+                  style: OutlinedButton.styleFrom(
+                    side: const BorderSide(color: Colors.white, width: 1.8),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(40),
+                    ),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 48,
+                      vertical: 24,
+                    ),
+                    foregroundColor: Colors.white,
+                  ),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: const [
+                      Text('Кчбнк', style: TextStyle(fontFamily: "Minecraft")),
                       SizedBox(width: 10),
                       Text(">", style: TextStyle(fontFamily: "Minecraft")),
                     ],
