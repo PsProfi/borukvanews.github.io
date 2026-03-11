@@ -38,8 +38,8 @@ class _EmptyScreenState extends State<EmptyScreen> {
       body: Stack(
         fit: StackFit.expand,
         children: [
-          // Background
-          Image.asset('assets/pictures/bg/backg.png', fit: BoxFit.cover),
+          // background
+          Image.asset('assets/pictures/bg/backg2.png', fit: BoxFit.cover),
 
           // Dark overlay for readability
           Container(color: Colors.black.withOpacity(0.35)),

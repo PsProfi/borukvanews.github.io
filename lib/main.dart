@@ -1,6 +1,7 @@
 import 'package:bor_nov_site/empty_screen.dart';
 import 'package:bor_nov_site/first.dart';
 import 'package:bor_nov_site/kchbnk.dart';
+import 'package:bor_nov_site/news_home.dart';
 import 'package:bor_nov_site/second.dart';
 import 'package:bor_nov_site/third.dart';
 import 'package:flutter/material.dart';
@@ -16,7 +17,7 @@ void main() {
         path: '/atRmklps',
         builder: (context, state) => const FirstScreen(),
       ),
-      GoRoute(path: '/', builder: (context, state) => const EmptyScreen()),
+      GoRoute(path: '/empty', builder: (context, state) => const EmptyScreen()),
       GoRoute(
         path: '/qizmvUxp',
         builder: (context, state) => const SecondScreen(),
@@ -26,6 +27,7 @@ void main() {
         builder: (context, state) => const ThirdScreen(),
       ),
       GoRoute(path: '/qbE34klm', builder: (context, state) => const Kchbnk()),
+      GoRoute(path: '/', builder: (context, state) => const NewsHomePage()),
     ],
   );
 
@@ -93,8 +95,8 @@ class MainScreen extends StatelessWidget {
       body: Stack(
         fit: StackFit.expand,
         children: [
-          // Background
-          Image.asset('assets/pictures/bg/backg.png', fit: BoxFit.cover),
+          // background
+          Image.asset('assets/pictures/bg/backg2.png', fit: BoxFit.cover),
 
           // Dark overlay for readability
           Container(color: Colors.black.withOpacity(0.35)),

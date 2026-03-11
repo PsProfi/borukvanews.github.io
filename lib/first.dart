@@ -272,8 +272,8 @@ class _FirstScreenState extends State<FirstScreen> {
       body: Stack(
         fit: StackFit.expand,
         children: [
-          // Background
-          Image.asset('assets/pictures/bg/backg.png', fit: BoxFit.cover),
+          // background
+          Image.asset('assets/pictures/bg/backg2.png', fit: BoxFit.cover),
 
           // Content pushed below AppBar
           Column(
