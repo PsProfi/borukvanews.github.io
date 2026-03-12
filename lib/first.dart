@@ -273,7 +273,7 @@ class _FirstScreenState extends State<FirstScreen> {
         fit: StackFit.expand,
         children: [
           // background
-          Image.asset('assets/pictures/bg/backg2.png', fit: BoxFit.cover),
+          Image.asset('assets/pictures/bg/bg_borukva.png', fit: BoxFit.cover),
 
           // Content pushed below AppBar
           Column(
@@ -352,7 +352,7 @@ class _FirstScreenState extends State<FirstScreen> {
                       ignoring: !_hasNext,
                       child: TextBtn(
                         text: Text(
-                          ">",
+                          " >",
                           style: TextStyle(
                             fontFamily: "Minecraft",
                             color: Colors.black,

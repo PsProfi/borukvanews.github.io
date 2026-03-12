@@ -262,7 +262,7 @@ class _ThirdScreenState extends State<ThirdScreen> {
         fit: StackFit.expand,
         children: [
           // background
-          Image.asset('assets/pictures/bg/backg2.png', fit: BoxFit.cover),
+          Image.asset('assets/pictures/bg/bg_borukva.png', fit: BoxFit.cover),
 
           // Content pushed below AppBar
           Column(
@@ -341,7 +341,7 @@ class _ThirdScreenState extends State<ThirdScreen> {
                       ignoring: !_hasNext,
                       child: TextBtn(
                         text: Text(
-                          ">",
+                          " >",
                           style: TextStyle(
                             fontFamily: "Minecraft",
                             color: Colors.black,

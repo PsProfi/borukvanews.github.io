@@ -96,7 +96,7 @@ class MainScreen extends StatelessWidget {
         fit: StackFit.expand,
         children: [
           // background
-          Image.asset('assets/pictures/bg/backg2.png', fit: BoxFit.cover),
+          Image.asset('assets/pictures/bg/bg_borukva.png', fit: BoxFit.cover),
 
           // Dark overlay for readability
           Container(color: Colors.black.withOpacity(0.35)),

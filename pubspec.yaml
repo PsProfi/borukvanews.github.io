@@ -28,7 +28,8 @@ flutter:
     - assets/pictures/09_02-14_02/page_3.png
     - assets/pictures/09_02-14_02/page_4.png
     - assets/pictures/09_02-14_02/last_1.png
-    - assets/pictures/bg/backg2.png
+    - assets/pictures/bg/bg_borukva.png
+    - assets/pictures/bg/bg_borukva-monochrome.png
     - assets/pictures/15_02-21_02/15.02-21.02.png
     - assets/pictures/15_02-21_02/Газета 15-21 лют стор. 1.png
     - assets/pictures/15_02-21_02/Газета 15-21 лют стор. 2.png
@@ -56,6 +57,7 @@ flutter:
     - assets/pictures/kchbnk/Кчбнк стор.6 .png
     - assets/pictures/kchbnk/Кчбнк стор.7 .png
     - assets/pictures/kchbnk/Кчбнк титул. .png
+    - assets/pictures/skoro/скоро.png
 
   fonts:
     - family: Minecraft

@@ -259,7 +259,7 @@ class _SecondScreenState extends State<SecondScreen> {
         fit: StackFit.expand,
         children: [
           // background
-          Image.asset('assets/pictures/bg/backg2.png', fit: BoxFit.cover),
+          Image.asset('assets/pictures/bg/bg_borukva.png', fit: BoxFit.cover),
 
           // Content pushed below AppBar
           Column(
@@ -338,7 +338,7 @@ class _SecondScreenState extends State<SecondScreen> {
                       ignoring: !_hasNext,
                       child: TextBtn(
                         text: Text(
-                          ">",
+                          " >",
                           style: TextStyle(
                             fontFamily: "Minecraft",
                             color: Colors.black,
