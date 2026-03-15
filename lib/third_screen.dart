@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'hotspot_shared.dart';
 
 class ThirdScreen extends StatefulWidget {
@@ -9,7 +10,10 @@ class ThirdScreen extends StatefulWidget {
 
 class _ThirdScreenState extends CarouselScreenState<ThirdScreen> {
   @override
-  String get appBarTitle => 'Borukva News';
+  Widget get appBarTitleWidget => Text(
+    'Borukva News',
+    style: GoogleFonts.tapestry(fontWeight: FontWeight.w600, fontSize: 40),
+  );
 
   @override
   HotspotStorage get storage => HotspotStorage(

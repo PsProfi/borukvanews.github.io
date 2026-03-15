@@ -821,7 +821,7 @@ abstract class CarouselScreenState<T extends StatefulWidget> extends State<T> {
   // ── Subclass must override these ──
   List<String> get photos;
   HotspotStorage get storage;
-  String get appBarTitle;
+  Widget get appBarTitleWidget;
   String get bgAsset => 'assets/pictures/bg/bg_borukva.png';
 
   // ── Internal state ──
@@ -966,14 +966,7 @@ abstract class CarouselScreenState<T extends StatefulWidget> extends State<T> {
           automaticallyImplyLeading: false,
           backgroundColor: Colors.transparent,
           elevation: 0,
-          title: Text(
-            appBarTitle,
-            style: const TextStyle(
-              fontFamily: 'Tapestry',
-              fontWeight: FontWeight.w600,
-              fontSize: 40,
-            ),
-          ),
+          title: appBarTitleWidget,
           actions: [
             if (devMode)
               Padding(
