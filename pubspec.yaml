@@ -73,7 +73,6 @@ flutter:
     - assets/pictures/01_03-14_03/Газета 1-14 бер стор. 8.png
     - assets/pictures/01_03-14_03/Газета 1-14 бер стор. 9.png
     - assets/pictures/остання стор.png
-    - web/videos/interview_1.MOV
 
   fonts:
     - family: Minecraft
