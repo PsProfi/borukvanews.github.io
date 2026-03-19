@@ -1,4 +1,5 @@
 import 'package:bor_nov_site/empty_screen.dart';
+import 'package:bor_nov_site/interview_artemida.dart';
 import 'package:bor_nov_site/first_screen.dart';
 import 'package:bor_nov_site/fourth_screen.dart';
 import 'package:bor_nov_site/second_screen.dart';
@@ -36,9 +37,12 @@ void main() {
         path: '/x9t2q7wb',
         builder: (context, state) => const FourthScreen(),
       ),
+      GoRoute(
+        path: '/inter1',
+        builder: (context, state) => const InterviewScreenArtemida(),
+      ),
     ],
   );
-
   runApp(PhotoCarouselApp(router: router));
 }
 
@@ -53,7 +57,9 @@ class PhotoCarouselApp extends StatelessWidget {
       title: 'Borukva News',
       theme: ThemeData(
         primarySwatch: Colors.blue,
-        textTheme: GoogleFonts.tapestryTextTheme(Theme.of(context).textTheme),
+        textTheme: TextTheme(
+          bodyMedium: TextStyle(fontFamily: 'Tapestry', color: Colors.white),
+        ),
       ),
       routerConfig: router,
       debugShowCheckedModeBanner: false,
@@ -119,7 +125,8 @@ class MainScreen extends StatelessWidget {
                 // Logo / title
                 Text(
                   'Borukva',
-                  style: GoogleFonts.tapestry(
+                  style: TextStyle(
+                    fontFamily: 'Tapestry',
                     fontSize: 64,
                     fontWeight: FontWeight.w700,
                     color: Colors.white,
@@ -129,7 +136,8 @@ class MainScreen extends StatelessWidget {
                 const SizedBox(height: 8),
                 Text(
                   'News',
-                  style: GoogleFonts.tapestry(
+                  style: TextStyle(
+                    fontFamily: 'Tapestry',
                     fontSize: 32,
                     fontWeight: FontWeight.w400,
                     color: Colors.white70,

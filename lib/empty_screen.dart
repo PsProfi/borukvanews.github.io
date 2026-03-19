@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:audioplayers/audioplayers.dart';
 
 // ─── Empty State Screen ──────────────────────────────────────────────────────
@@ -54,19 +53,22 @@ class _EmptyScreenState extends State<EmptyScreen> {
                 // Empty message
                 Text(
                   'Тут нічого',
-                  style: GoogleFonts.tapestry(
-                    fontSize: 48,
+                  style: TextStyle(
+                    fontFamily: 'Tapestry',
                     fontWeight: FontWeight.w600,
+                    fontSize: 36,
                     color: Colors.white,
-                    letterSpacing: 1.5,
+                    letterSpacing: 4,
                   ),
                 ),
+
                 const SizedBox(height: 12),
                 Text(
                   'немає',
-                  style: GoogleFonts.tapestry(
-                    fontSize: 28,
+                  style: TextStyle(
+                    fontFamily: 'Tapestry',
                     fontWeight: FontWeight.w400,
+                    fontSize: 28,
                     color: Colors.white70,
                     letterSpacing: 4,
                   ),

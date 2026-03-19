@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'hotspot_shared.dart';
 
 class KchbnkScreen extends StatefulWidget {
@@ -12,7 +11,11 @@ class _KchbnkScreenState extends CarouselScreenState<KchbnkScreen> {
   @override
   Widget get appBarTitleWidget => Text(
     'Borukva News',
-    style: GoogleFonts.tapestry(fontWeight: FontWeight.w600, fontSize: 40),
+    style: TextStyle(
+      fontFamily: 'Tapestry',
+      fontWeight: FontWeight.w600,
+      fontSize: 40,
+    ),
   );
 
   @override
@@ -23,15 +26,15 @@ class _KchbnkScreenState extends CarouselScreenState<KchbnkScreen> {
   );
 
   @override
-  List<String> get photos => [
-    'assets/pictures/kchbnk/Нов руб.png',
-    'assets/pictures/kchbnk/Кчбнк стор.1 .png',
-    'assets/pictures/kchbnk/Кчбнк стор.2 .png',
-    'assets/pictures/kchbnk/Кчбнк стор.3 .png',
-    'assets/pictures/kchbnk/Кчбнк стор.4 .png',
-    'assets/pictures/kchbnk/Кчбнк стор.5 .png',
-    'assets/pictures/kchbnk/Кчбнк стор.6 .png',
-    'assets/pictures/kchbnk/Кчбнк стор.7 .png',
-    'assets/pictures/kchbnk/Кчбнк титул. .png',
+  List<PageItem> get pages => [
+    PageItem.image('assets/pictures/kchbnk/Нов руб.png'),
+    PageItem.image('assets/pictures/kchbnk/Кчбнк стор.1 .png'),
+    PageItem.image('assets/pictures/kchbnk/Кчбнк стор.2 .png'),
+    PageItem.image('assets/pictures/kchbnk/Кчбнк стор.3 .png'),
+    PageItem.image('assets/pictures/kchbnk/Кчбнк стор.4 .png'),
+    PageItem.image('assets/pictures/kchbnk/Кчбнк стор.5 .png'),
+    PageItem.image('assets/pictures/kchbnk/Кчбнк стор.6 .png'),
+    PageItem.image('assets/pictures/kchbnk/Кчбнк стор.7 .png'),
+    PageItem.image('assets/pictures/kchbnk/Кчбнк титул. .png'),
   ];
 }

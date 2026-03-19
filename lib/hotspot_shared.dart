@@ -1,6 +1,8 @@
 import 'dart:convert';
 import 'dart:ui';
 
+import 'package:youtube_player_iframe/youtube_player_iframe.dart';
+
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -12,6 +14,21 @@ import 'package:url_launcher/url_launcher.dart';
 // ─────────────────────────────────────────────────────────────────────────────
 
 const String kDevCombo = 'devmode';
+
+// ─────────────────────────────────────────────────────────────────────────────
+// PAGE ITEM — either an image asset or a video asset
+// ─────────────────────────────────────────────────────────────────────────────
+
+class PageItem {
+  final String
+  assetPath; // asset path for image, video URL, or YouTube video ID
+  final bool isVideo;
+  final bool isYoutube;
+
+  const PageItem.image(this.assetPath) : isVideo = false, isYoutube = false;
+  const PageItem.video(this.assetPath) : isVideo = true, isYoutube = false;
+  const PageItem.youtube(this.assetPath) : isVideo = false, isYoutube = true;
+}
 
 // ─────────────────────────────────────────────────────────────────────────────
 // MODEL
@@ -304,6 +321,152 @@ class AssetImageWithLoader extends StatelessWidget {
       );
     },
   );
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// ─────────────────────────────────────────────────────────────────────────────
+// YOUTUBE VIDEO SCREEN
+//
+// Standalone screen with AppBar + YouTube player.
+// Pass the YouTube video ID (e.g. 'dQw4w9WgXcQ').
+// ─────────────────────────────────────────────────────────────────────────────
+
+class YoutubeVideoScreen extends StatefulWidget {
+  final String videoId;
+  final Widget titleWidget;
+  final String bgAsset;
+
+  const YoutubeVideoScreen({
+    super.key,
+    required this.videoId,
+    required this.titleWidget,
+    this.bgAsset = 'assets/pictures/bg/bg_borukva.png',
+  });
+
+  @override
+  State<YoutubeVideoScreen> createState() => _YoutubeVideoScreenState();
+}
+
+class _YoutubeVideoScreenState extends State<YoutubeVideoScreen> {
+  late final YoutubePlayerController _controller;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = YoutubePlayerController.fromVideoId(
+      videoId: widget.videoId,
+      autoPlay: false,
+      params: const YoutubePlayerParams(
+        showControls: true,
+        showFullscreenButton: true,
+        mute: false,
+      ),
+    );
+  }
+
+  @override
+  void dispose() {
+    _controller.close();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      extendBodyBehindAppBar: true,
+      appBar: AppBar(
+        automaticallyImplyLeading: true,
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        title: widget.titleWidget,
+      ),
+      body: Stack(
+        fit: StackFit.expand,
+        children: [
+          Image.asset(widget.bgAsset, fit: BoxFit.cover),
+          Column(
+            children: [
+              SizedBox(
+                height: kToolbarHeight + MediaQuery.of(context).padding.top,
+              ),
+              Expanded(
+                child: Center(
+                  child: YoutubePlayer(
+                    controller: _controller,
+                    aspectRatio: 16 / 9,
+                  ),
+                ),
+              ),
+              const SizedBox(height: 20),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// YOUTUBE PAGE WIDGET — used inside the carousel PageView
+//
+// Shows a thumbnail with a play button. Tapping opens YoutubeVideoScreen.
+// ─────────────────────────────────────────────────────────────────────────────
+
+class YoutubePageWidget extends StatelessWidget {
+  final String videoId;
+  final Widget titleWidget;
+  final String bgAsset;
+
+  const YoutubePageWidget({
+    super.key,
+    required this.videoId,
+    required this.titleWidget,
+    this.bgAsset = 'assets/pictures/bg/bg_borukva.png',
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final thumb = 'https://img.youtube.com/vi/$videoId/hqdefault.jpg';
+
+    return GestureDetector(
+      onTap: () => Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (_) => YoutubeVideoScreen(
+            videoId: videoId,
+            titleWidget: titleWidget,
+            bgAsset: bgAsset,
+          ),
+        ),
+      ),
+      child: Stack(
+        fit: StackFit.passthrough,
+        children: [
+          // Thumbnail
+          Image.network(
+            thumb,
+            fit: BoxFit.cover,
+            errorBuilder: (_, __, ___) => const ColoredBox(color: Colors.black),
+          ),
+          // Play button overlay
+          Center(
+            child: Container(
+              width: 72,
+              height: 72,
+              decoration: const BoxDecoration(
+                color: Colors.black54,
+                shape: BoxShape.circle,
+              ),
+              child: const Icon(
+                Icons.play_arrow,
+                color: Colors.white,
+                size: 44,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -692,14 +855,14 @@ class _HotspotDevLayerState extends State<HotspotDevLayer> {
 // ─────────────────────────────────────────────────────────────────────────────
 
 class FullScreenViewer extends StatefulWidget {
-  final List<String> photos;
+  final List<PageItem> pages;
   final int initialIndex;
   final List<List<PhotoHotspot>> hotspots;
   final List<Size> imageSizes;
 
   const FullScreenViewer({
     super.key,
-    required this.photos,
+    required this.pages,
     required this.initialIndex,
     required this.hotspots,
     required this.imageSizes,
@@ -733,7 +896,7 @@ class _FullScreenViewerState extends State<FullScreenViewer> {
   );
 
   bool get _hasPrev => _currentIndex > 0;
-  bool get _hasNext => _currentIndex < widget.photos.length - 1;
+  bool get _hasNext => _currentIndex < widget.pages.length - 1;
 
   @override
   Widget build(BuildContext context) {
@@ -743,25 +906,34 @@ class _FullScreenViewerState extends State<FullScreenViewer> {
         children: [
           PageView.builder(
             controller: _pageController,
-            itemCount: widget.photos.length,
+            itemCount: widget.pages.length,
             onPageChanged: (i) => setState(() => _currentIndex = i),
-            itemBuilder: (context, index) => InteractiveViewer(
-              minScale: 1,
-              maxScale: 4,
-              child: Center(
-                child: Stack(
-                  children: [
-                    AssetImageWithLoader(assetPath: widget.photos[index]),
-                    Positioned.fill(
-                      child: HotspotViewLayer(
-                        hotspots: widget.hotspots[index],
-                        imageSize: widget.imageSizes[index],
+            itemBuilder: (context, index) {
+              final page = widget.pages[index];
+              if (page.isYoutube) {
+                return YoutubePageWidget(
+                  videoId: page.assetPath,
+                  titleWidget: const SizedBox.shrink(),
+                );
+              }
+              return InteractiveViewer(
+                minScale: 1,
+                maxScale: 4,
+                child: Center(
+                  child: Stack(
+                    children: [
+                      AssetImageWithLoader(assetPath: page.assetPath),
+                      Positioned.fill(
+                        child: HotspotViewLayer(
+                          hotspots: widget.hotspots[index],
+                          imageSize: widget.imageSizes[index],
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-              ),
-            ),
+              );
+            },
           ),
           Positioned(
             top: MediaQuery.of(context).padding.top + 12,
@@ -819,7 +991,7 @@ class _FullScreenViewerState extends State<FullScreenViewer> {
 
 abstract class CarouselScreenState<T extends StatefulWidget> extends State<T> {
   // ── Subclass must override these ──
-  List<String> get photos;
+  List<PageItem> get pages;
   HotspotStorage get storage;
   Widget get appBarTitleWidget;
   String get bgAsset => 'assets/pictures/bg/bg_borukva.png';
@@ -850,7 +1022,7 @@ abstract class CarouselScreenState<T extends StatefulWidget> extends State<T> {
   }
 
   Future<void> _loadHotspots() async {
-    final loaded = await storage.load(photos.length);
+    final loaded = await storage.load(pages.length);
     setState(() {
       hotspots = loaded;
       hotspotsLoaded = true;
@@ -861,9 +1033,13 @@ abstract class CarouselScreenState<T extends StatefulWidget> extends State<T> {
 
   Future<void> _loadImageSizes() async {
     final sizes = <Size>[];
-    for (final path in photos) {
+    for (final page in pages) {
+      if (page.isVideo || page.isYoutube) {
+        sizes.add(const Size(1920, 1080)); // 16:9 fallback
+        continue;
+      }
       try {
-        final data = await rootBundle.load(path);
+        final data = await rootBundle.load(page.assetPath);
         final codec = await instantiateImageCodec(data.buffer.asUint8List());
         final frame = await codec.getNextFrame();
         sizes.add(
@@ -913,7 +1089,7 @@ abstract class CarouselScreenState<T extends StatefulWidget> extends State<T> {
   }
 
   bool get hasPrev => currentIndex > 0;
-  bool get hasNext => currentIndex < photos.length - 1;
+  bool get hasNext => currentIndex < pages.length - 1;
 
   void nextPhoto() {
     if (hasNext) {
@@ -941,7 +1117,7 @@ abstract class CarouselScreenState<T extends StatefulWidget> extends State<T> {
     final result = await Navigator.of(context).push<int>(
       MaterialPageRoute(
         builder: (_) => FullScreenViewer(
-          photos: photos,
+          pages: pages,
           initialIndex: currentIndex,
           hotspots: hotspots,
           imageSizes: imageSizes,
@@ -1013,14 +1189,24 @@ abstract class CarouselScreenState<T extends StatefulWidget> extends State<T> {
                             ? const NeverScrollableScrollPhysics()
                             : const ScrollPhysics(),
                         onPageChanged: (i) => setState(() => currentIndex = i),
-                        itemCount: photos.length,
-                        itemBuilder: (context, index) => AssetImageWithLoader(
-                          assetPath: photos[index],
-                          fit: BoxFit.contain,
-                        ),
+                        itemCount: pages.length,
+                        itemBuilder: (context, index) {
+                          final page = pages[index];
+                          if (page.isYoutube) {
+                            return YoutubePageWidget(
+                              videoId: page.assetPath,
+                              titleWidget: appBarTitleWidget,
+                              bgAsset: bgAsset,
+                            );
+                          }
+                          return AssetImageWithLoader(
+                            assetPath: page.assetPath,
+                            fit: BoxFit.contain,
+                          );
+                        },
                       ),
 
-                      if (hotspotsLoaded && imageSizes.length == photos.length)
+                      if (hotspotsLoaded && imageSizes.length == pages.length)
                         Positioned.fill(
                           child: devMode
                               ? HotspotDevLayer(
@@ -1119,7 +1305,7 @@ abstract class CarouselScreenState<T extends StatefulWidget> extends State<T> {
                       ),
                       const SizedBox(width: 16),
                       Text(
-                        '${currentIndex + 1} / ${photos.length}',
+                        '${currentIndex + 1} / ${pages.length}',
                         style: const TextStyle(fontFamily: 'Minecraft'),
                       ),
                       const SizedBox(width: 16),

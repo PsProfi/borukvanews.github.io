@@ -15,6 +15,7 @@ dependencies:
   url_launcher: ^6.3.2
   shared_preferences: ^2.5.4
   http: ^1.6.0
+  youtube_player_iframe: ^5.2.0
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -60,6 +61,7 @@ flutter:
     - assets/pictures/kchbnk/Кчбнк стор.7 .png
     - assets/pictures/kchbnk/Кчбнк титул. .png
     - assets/pictures/skoro/скоро.png
+    - assets/pictures/skoro/5323723242159675852.jpg
     - assets/pictures/01_03-14_03/Титул. 1-14 бер.png
     - assets/pictures/01_03-14_03/Газета 1-14 бер стор. 1.png
     - assets/pictures/01_03-14_03/Газета 1-14 бер стор. 2.png
@@ -71,8 +73,12 @@ flutter:
     - assets/pictures/01_03-14_03/Газета 1-14 бер стор. 8.png
     - assets/pictures/01_03-14_03/Газета 1-14 бер стор. 9.png
     - assets/pictures/остання стор.png
+    - web/videos/interview_1.MOV
 
   fonts:
     - family: Minecraft
       fonts:
         - asset: assets/fonts/Minecraft_1.1.ttf
+    - family: Tapestry
+      fonts:
+        - asset: assets/fonts/Tapestry-Regular.ttf

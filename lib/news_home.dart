@@ -10,8 +10,14 @@ class CarouselItem {
   final String imagePath;
   final String url;
   final String? caption;
+  final bool isNew; // ← badge flag
 
-  CarouselItem({required this.imagePath, required this.url, this.caption});
+  CarouselItem({
+    required this.imagePath,
+    required this.url,
+    this.caption,
+    this.isNew = false,
+  });
 }
 
 // ─── Dropdown Menu Item ───────────────────────────────────────────────────────
@@ -19,8 +25,40 @@ class CarouselItem {
 class DropdownMenuItem {
   final String label;
   final String route;
+  final bool isNew; // ← badge flag
 
-  DropdownMenuItem({required this.label, required this.route});
+  DropdownMenuItem({
+    required this.label,
+    required this.route,
+    this.isNew = false,
+  });
+}
+
+// ─── "Новий" badge widget ─────────────────────────────────────────────────────
+
+class NewBadge extends StatelessWidget {
+  const NewBadge({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+      decoration: BoxDecoration(
+        color: Colors.red,
+        borderRadius: BorderRadius.circular(6),
+      ),
+      child: const Text(
+        'НОВИЙ',
+        style: TextStyle(
+          fontFamily: 'Minecraft',
+          color: Colors.white,
+          fontSize: 9,
+          fontWeight: FontWeight.bold,
+          letterSpacing: 0.5,
+        ),
+      ),
+    );
+  }
 }
 
 // ─── News Home Page ───────────────────────────────────────────────────────────
@@ -38,7 +76,6 @@ class _NewsHomePageState extends State<NewsHomePage> {
   Timer? _autoPlayTimer;
   bool _isCarouselHovered = false;
 
-  // Multiple dropdown menus with their options
   final Map<String, List<DropdownMenuItem>> _dropdownMenus = {
     'Основні випуски': [
       DropdownMenuItem(label: '09.02-14.02', route: '/atRmklps'),
@@ -46,7 +83,13 @@ class _NewsHomePageState extends State<NewsHomePage> {
     'Спецвипуски': [
       DropdownMenuItem(label: 'Спецвипуск 1', route: '/qbE34klm'),
     ],
-    'Інтерв\'ю': [DropdownMenuItem(label: 'Скоро', route: '/empty')],
+    'Інтерв\'ю': [
+      DropdownMenuItem(
+        label: 'Інтерв\'ю з Артемідою',
+        route: '/inter1',
+        isNew: true, // ← badge
+      ),
+    ],
   };
 
   final List<CarouselItem> _carouselItems = [
@@ -56,9 +99,10 @@ class _NewsHomePageState extends State<NewsHomePage> {
       caption: 'Нова рубрика!',
     ),
     CarouselItem(
-      imagePath: 'assets/pictures/skoro/скоро.png',
-      url: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
-      caption: 'Скоро...',
+      imagePath: 'assets/pictures/skoro/5323723242159675852.jpg',
+      url: '/#/inter1',
+      caption: 'Нове інтерв\'ю!',
+      isNew: true, // ← badge on slide 2
     ),
     CarouselItem(
       imagePath: 'assets/pictures/skoro/скоро.png',
@@ -126,6 +170,9 @@ class _NewsHomePageState extends State<NewsHomePage> {
   }
 
   Widget _buildDropdown(String title, List<DropdownMenuItem> items) {
+    // Check if any item in this category has isNew
+    final hasNew = items.any((i) => i.isNew);
+
     return PopupMenuButton<String>(
       tooltip: title,
       offset: const Offset(0, 40),
@@ -154,6 +201,7 @@ class _NewsHomePageState extends State<NewsHomePage> {
                 fontWeight: FontWeight.w500,
               ),
             ),
+            if (hasNew) ...[const SizedBox(width: 6), const NewBadge()],
             const SizedBox(width: 2),
             const Icon(Icons.arrow_drop_down, size: 18),
           ],
@@ -165,7 +213,15 @@ class _NewsHomePageState extends State<NewsHomePage> {
             value: item.route,
             child: SizedBox(
               width: double.infinity,
-              child: Text(item.label, style: GoogleFonts.roboto(fontSize: 14)),
+              child: Row(
+                children: [
+                  Text(item.label, style: GoogleFonts.roboto(fontSize: 14)),
+                  if (item.isNew) ...[
+                    const SizedBox(width: 8),
+                    const NewBadge(),
+                  ],
+                ],
+              ),
             ),
           );
         }).toList();
@@ -197,12 +253,12 @@ class _NewsHomePageState extends State<NewsHomePage> {
             title: isMobile
                 ? Row(
                     children: [
-                      // Mobile: Just logo and hamburger menu
                       Text(
                         'Borukva',
-                        style: GoogleFonts.tapestry(
-                          fontSize: 20,
+                        style: TextStyle(
+                          fontFamily: 'Tapestry',
                           fontWeight: FontWeight.w600,
+                          fontSize: 24,
                           color: Colors.black87,
                         ),
                       ),
@@ -213,7 +269,6 @@ class _NewsHomePageState extends State<NewsHomePage> {
                         itemBuilder: (context) {
                           List<PopupMenuEntry<String>> allItems = [];
 
-                          // Add all dropdown items
                           _dropdownMenus.forEach((category, items) {
                             allItems.add(
                               PopupMenuItem<String>(
@@ -235,9 +290,19 @@ class _NewsHomePageState extends State<NewsHomePage> {
                                   value: item.route,
                                   child: Padding(
                                     padding: const EdgeInsets.only(left: 16),
-                                    child: Text(
-                                      item.label,
-                                      style: GoogleFonts.roboto(fontSize: 13),
+                                    child: Row(
+                                      children: [
+                                        Text(
+                                          item.label,
+                                          style: GoogleFonts.roboto(
+                                            fontSize: 13,
+                                          ),
+                                        ),
+                                        if (item.isNew) ...[
+                                          const SizedBox(width: 8),
+                                          const NewBadge(),
+                                        ],
+                                      ],
                                     ),
                                   ),
                                 ),
@@ -247,7 +312,6 @@ class _NewsHomePageState extends State<NewsHomePage> {
                             allItems.add(const PopupMenuDivider());
                           });
 
-                          // Add play button
                           allItems.add(
                             PopupMenuItem<String>(
                               value: 'play',
@@ -280,10 +344,10 @@ class _NewsHomePageState extends State<NewsHomePage> {
                   )
                 : Row(
                     children: [
-                      // Desktop: Full layout
                       Text(
                         'Borukva News',
-                        style: GoogleFonts.tapestry(
+                        style: TextStyle(
+                          fontFamily: 'Tapestry',
                           fontSize: isTablet ? 24 : 28,
                           fontWeight: FontWeight.w600,
                           color: Colors.black87,
@@ -292,7 +356,6 @@ class _NewsHomePageState extends State<NewsHomePage> {
                       const SizedBox(width: 32),
                       const Spacer(),
 
-                      // Dropdown menus
                       ..._dropdownMenus.entries.map((entry) {
                         return Padding(
                           padding: const EdgeInsets.only(right: 12),
@@ -302,7 +365,6 @@ class _NewsHomePageState extends State<NewsHomePage> {
 
                       const Spacer(),
 
-                      // Play button
                       OutlinedButton(
                         onPressed: () => _openUrl(
                           'https://tsebuleve.wiki.gg/uk/wiki/%D0%93%D0%B0%D0%B9%D0%B4_%C2%AB%D0%A0%D0%B5%D1%94%D1%81%D1%82%D1%80%D0%B0%D1%86%D1%96%D1%8F_%D0%BD%D0%B0_%D1%81%D0%B5%D1%80%D0%B2%D0%B5%D1%80%D1%96%C2%BB',
@@ -338,7 +400,6 @@ class _NewsHomePageState extends State<NewsHomePage> {
           body: SingleChildScrollView(
             child: Column(
               children: [
-                // Carousel section with responsive sizing
                 SizedBox(
                   height: isMobile ? 500 : (isTablet ? 600 : 800),
                   child: isMobile
@@ -346,7 +407,6 @@ class _NewsHomePageState extends State<NewsHomePage> {
                       : _buildDesktopCarousel(isTablet),
                 ),
 
-                // Bottom text section
                 Container(
                   padding: const EdgeInsets.all(20),
                   color: Colors.white.withOpacity(0.5),
@@ -383,56 +443,41 @@ class _NewsHomePageState extends State<NewsHomePage> {
     );
   }
 
-  // Mobile carousel - stacked vertically with overlay arrows
   Widget _buildMobileCarousel() {
     return Stack(
       children: [
-        // Carousel
         PageView.builder(
           controller: _pageController,
           itemCount: _carouselItems.length,
-          onPageChanged: (index) {
-            setState(() => _currentIndex = index);
-          },
-          itemBuilder: (context, index) {
-            return _buildCarouselItem(_carouselItems[index], true);
-          },
+          onPageChanged: (index) => setState(() => _currentIndex = index),
+          itemBuilder: (context, index) =>
+              _buildCarouselItem(_carouselItems[index], true),
         ),
-
-        // Left arrow overlay
         Positioned(
           left: 8,
           top: 0,
           bottom: 60,
           child: Center(child: _buildArrowButton(true, true)),
         ),
-
-        // Right arrow overlay
         Positioned(
           right: 8,
           top: 0,
           bottom: 60,
           child: Center(child: _buildArrowButton(false, true)),
         ),
-
-        // Dot indicators
         Positioned(bottom: 20, left: 0, right: 0, child: _buildDotIndicators()),
       ],
     );
   }
 
-  // Desktop carousel - horizontal with external arrows
   Widget _buildDesktopCarousel(bool isTablet) {
     final carouselWidth = isTablet ? 400.0 : 500.0;
 
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        // Left arrow
         _buildArrowButton(true, false),
         const SizedBox(width: 20),
-
-        // Carousel
         SizedBox(
           width: carouselWidth,
           child: MouseRegion(
@@ -443,12 +488,10 @@ class _NewsHomePageState extends State<NewsHomePage> {
                 PageView.builder(
                   controller: _pageController,
                   itemCount: _carouselItems.length,
-                  onPageChanged: (index) {
-                    setState(() => _currentIndex = index);
-                  },
-                  itemBuilder: (context, index) {
-                    return _buildCarouselItem(_carouselItems[index], false);
-                  },
+                  onPageChanged: (index) =>
+                      setState(() => _currentIndex = index),
+                  itemBuilder: (context, index) =>
+                      _buildCarouselItem(_carouselItems[index], false),
                 ),
                 Positioned(
                   bottom: 40,
@@ -460,9 +503,7 @@ class _NewsHomePageState extends State<NewsHomePage> {
             ),
           ),
         ),
-
         const SizedBox(width: 20),
-        // Right arrow
         _buildArrowButton(false, false),
       ],
     );
@@ -492,7 +533,6 @@ class _NewsHomePageState extends State<NewsHomePage> {
               children: [
                 Image.asset(item.imagePath, fit: BoxFit.cover),
 
-                // Hover overlay
                 if (_isCarouselHovered && !isMobile)
                   Container(
                     decoration: BoxDecoration(
@@ -504,7 +544,6 @@ class _NewsHomePageState extends State<NewsHomePage> {
                     ),
                   ),
 
-                // Caption
                 if (item.caption != null)
                   Positioned(
                     bottom: 0,
@@ -533,7 +572,40 @@ class _NewsHomePageState extends State<NewsHomePage> {
                     ),
                   ),
 
-                // Click indicator
+                // ── NEW badge in top-right corner of slide ──
+                if (item.isNew)
+                  Positioned(
+                    top: 12,
+                    right: 12,
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 10,
+                        vertical: 5,
+                      ),
+                      decoration: BoxDecoration(
+                        color: Colors.red,
+                        borderRadius: BorderRadius.circular(8),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withOpacity(0.3),
+                            blurRadius: 4,
+                            offset: const Offset(0, 2),
+                          ),
+                        ],
+                      ),
+                      child: const Text(
+                        'НОВИЙ',
+                        style: TextStyle(
+                          fontFamily: 'Minecraft',
+                          color: Colors.white,
+                          fontSize: 11,
+                          fontWeight: FontWeight.bold,
+                          letterSpacing: 0.5,
+                        ),
+                      ),
+                    ),
+                  ),
+
                 if (_isCarouselHovered && !isMobile)
                   Center(
                     child: Container(
@@ -558,10 +630,6 @@ class _NewsHomePageState extends State<NewsHomePage> {
   }
 
   Widget _buildArrowButton(bool isLeft, bool isMobile) {
-    final isAtEnd = isLeft
-        ? _currentIndex == 0
-        : _currentIndex == _carouselItems.length - 1;
-
     return TextButton(
       style: TextButton.styleFrom(
         shape: const CircleBorder(),
