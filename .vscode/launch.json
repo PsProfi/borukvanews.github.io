@@ -6,18 +6,18 @@
     "configurations": [
     
         {
-            "name": "bor_nov_site",
+            "name": "borukva_news",
             "request": "launch",
             "type": "dart"
         },
         {
-            "name": "bor_nov_site (profile mode)",
+            "name": "borukva_news (profile mode)",
             "request": "launch",
             "type": "dart",
             "flutterMode": "profile"
         },
         {
-            "name": "bor_nov_site (release mode)",
+            "name": "borukva_news (release mode)",
             "request": "launch",
             "type": "dart",
             "flutterMode": "release"

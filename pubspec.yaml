@@ -1,5 +1,5 @@
-name: bor_nov_site
-description: "A new Flutter project."
+name: "borukva_news"
+description: "Новинний сайт для Борукви"
 publish_to: "none"
 version: 0.1.0
 
@@ -73,6 +73,13 @@ flutter:
     - assets/pictures/01_03-14_03/Газета 1-14 бер стор. 8.png
     - assets/pictures/01_03-14_03/Газета 1-14 бер стор. 9.png
     - assets/pictures/остання стор.png
+    - assets/pictures/15_03-29_03/Титул. 15-29 бер.png
+    - assets/pictures/15_03-29_03/Газета 15-29 бер стор. 1.png
+    - assets/pictures/15_03-29_03/Газета 15-29 бер стор. 2.png
+    - assets/pictures/15_03-29_03/Газета 15-29 бер стор. 3.png
+    - assets/pictures/15_03-29_03/Газета 15-29 бер стор. 4.png
+    - assets/pictures/15_03-29_03/Газета 15-29 бер стор. 5.png
+    - assets/pictures/15_03-29_03/Газета 15-29 бер стор. 6.png
 
   fonts:
     - family: Minecraft

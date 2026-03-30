@@ -79,20 +79,31 @@ class _NewsHomePageState extends State<NewsHomePage> {
   final Map<String, List<DropdownMenuItem>> _dropdownMenus = {
     'Основні випуски': [
       DropdownMenuItem(label: '09.02-14.02', route: '/atRmklps'),
+      DropdownMenuItem(label: '15.02-21.02', route: '/qizmvUxp', isNew: true),
     ],
+
     'Спецвипуски': [
       DropdownMenuItem(label: 'Спецвипуск 1', route: '/qbE34klm'),
     ],
     'Інтерв\'ю': [
-      DropdownMenuItem(
-        label: 'Інтерв\'ю з Артемідою',
-        route: '/inter1',
-        isNew: true, // ← badge
-      ),
+      DropdownMenuItem(label: 'Інтерв\'ю з Артемідою', route: '/inter1'),
     ],
   };
 
   final List<CarouselItem> _carouselItems = [
+    CarouselItem(
+      imagePath: 'assets/pictures/15_02-21_02/15.02-21.02.png',
+      url: '/#/qizmvUxp',
+      caption: 'Доступний випуск за 15-21 лютого!',
+      isNew: true,
+    ),
+    CarouselItem(
+      imagePath: 'assets/pictures/15_03-29_03/Титул. 15-29 бер.png',
+      url:
+          'https://tsebuleve.wiki.gg/uk/wiki/%D0%93%D0%B0%D0%B9%D0%B4_%C2%AB%D0%A0%D0%B5%D1%94%D1%81%D1%82%D1%80%D0%B0%D1%86%D1%96%D1%8F_%D0%BD%D0%B0_%D1%81%D0%B5%D1%80%D0%B2%D0%B5%D1%80%D1%96%C2%BB',
+      caption: 'Новий випуск за 15-29 березня, вже на сервері!',
+      isNew: true,
+    ),
     CarouselItem(
       imagePath: 'assets/pictures/kchbnk/Нов руб.png',
       url: '/#/qbE34klm',
@@ -102,17 +113,6 @@ class _NewsHomePageState extends State<NewsHomePage> {
       imagePath: 'assets/pictures/skoro/5323723242159675852.jpg',
       url: '/#/inter1',
       caption: 'Нове інтерв\'ю!',
-      isNew: true, // ← badge on slide 2
-    ),
-    CarouselItem(
-      imagePath: 'assets/pictures/skoro/скоро.png',
-      url: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
-      caption: 'Скоро...',
-    ),
-    CarouselItem(
-      imagePath: 'assets/pictures/skoro/скоро.png',
-      url: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
-      caption: 'Скоро...',
     ),
   ];
 

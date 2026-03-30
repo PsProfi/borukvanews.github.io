@@ -1,11 +1,12 @@
-import 'package:bor_nov_site/empty_screen.dart';
-import 'package:bor_nov_site/interview_artemida.dart';
-import 'package:bor_nov_site/first_screen.dart';
-import 'package:bor_nov_site/fourth_screen.dart';
-import 'package:bor_nov_site/second_screen.dart';
-import 'package:bor_nov_site/third_screen.dart';
-import 'package:bor_nov_site/kchbnk.dart';
-import 'package:bor_nov_site/news_home.dart';
+import 'package:borukva_news/empty_screen.dart';
+import 'package:borukva_news/fifth_screen.dart';
+import 'package:borukva_news/interview_artemida.dart';
+import 'package:borukva_news/first_screen.dart';
+import 'package:borukva_news/fourth_screen.dart';
+import 'package:borukva_news/second_screen.dart';
+import 'package:borukva_news/third_screen.dart';
+import 'package:borukva_news/kchbnk.dart';
+import 'package:borukva_news/news_home.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:go_router/go_router.dart';
@@ -40,6 +41,10 @@ void main() {
       GoRoute(
         path: '/inter1',
         builder: (context, state) => const InterviewScreenArtemida(),
+      ),
+      GoRoute(
+        path: '/k7m2q9vz',
+        builder: (context, state) => const FifthScreen(),
       ),
     ],
   );
@@ -265,6 +270,58 @@ class MainScreen extends StatelessWidget {
                     children: const [
                       Text(
                         '01.03-14.03',
+                        style: TextStyle(fontFamily: "Minecraft"),
+                      ),
+                      SizedBox(width: 10),
+                      Text(">", style: TextStyle(fontFamily: "Minecraft")),
+                    ],
+                  ),
+                ),
+                const SizedBox(height: 30),
+                OutlinedButton(
+                  onPressed: () => context.go('/inter1'),
+                  style: OutlinedButton.styleFrom(
+                    side: const BorderSide(color: Colors.white, width: 1.8),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(40),
+                    ),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 48,
+                      vertical: 24,
+                    ),
+                    foregroundColor: Colors.white,
+                  ),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: const [
+                      Text(
+                        'Інтерв\'ю з Артемідою',
+                        style: TextStyle(fontFamily: "Minecraft"),
+                      ),
+                      SizedBox(width: 10),
+                      Text(">", style: TextStyle(fontFamily: "Minecraft")),
+                    ],
+                  ),
+                ),
+                const SizedBox(height: 30),
+                OutlinedButton(
+                  onPressed: () => context.go('/k7m2q9vz'),
+                  style: OutlinedButton.styleFrom(
+                    side: const BorderSide(color: Colors.white, width: 1.8),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(40),
+                    ),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 48,
+                      vertical: 24,
+                    ),
+                    foregroundColor: Colors.white,
+                  ),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: const [
+                      Text(
+                        '15.03-29.03',
                         style: TextStyle(fontFamily: "Minecraft"),
                       ),
                       SizedBox(width: 10),

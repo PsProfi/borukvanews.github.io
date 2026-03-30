@@ -1,4 +1,4 @@
-package com.example.bor_nov_site
+package com.example.borukva_news
 
 import io.flutter.embedding.android.FlutterActivity
 

@@ -1306,7 +1306,10 @@ abstract class CarouselScreenState<T extends StatefulWidget> extends State<T> {
                       const SizedBox(width: 16),
                       Text(
                         '${currentIndex + 1} / ${pages.length}',
-                        style: const TextStyle(fontFamily: 'Minecraft'),
+                        style: const TextStyle(
+                          fontFamily: 'Minecraft',
+                          color: Colors.black87,
+                        ),
                       ),
                       const SizedBox(width: 16),
                       AnimatedOpacity(
