@@ -4,6 +4,7 @@ import 'package:borukva_news/interview_artemida.dart';
 import 'package:borukva_news/first_screen.dart';
 import 'package:borukva_news/fourth_screen.dart';
 import 'package:borukva_news/second_screen.dart';
+import 'package:borukva_news/sixth_screen.dart';
 import 'package:borukva_news/third_screen.dart';
 import 'package:borukva_news/kchbnk.dart';
 import 'package:borukva_news/news_home.dart';
@@ -45,6 +46,10 @@ void main() {
       GoRoute(
         path: '/k7m2q9vz',
         builder: (context, state) => const FifthScreen(),
+      ),
+      GoRoute(
+        path: '/l9bf3n0p',
+        builder: (context, state) => const UvFirstScreen(),
       ),
     ],
   );

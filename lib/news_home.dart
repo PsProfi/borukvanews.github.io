@@ -79,7 +79,11 @@ class _NewsHomePageState extends State<NewsHomePage> {
   final Map<String, List<DropdownMenuItem>> _dropdownMenus = {
     'Основні випуски': [
       DropdownMenuItem(label: '09.02-14.02', route: '/atRmklps'),
-      DropdownMenuItem(label: '15.02-21.02', route: '/qizmvUxp', isNew: true),
+      DropdownMenuItem(label: '15.02-21.02', route: '/qizmvUxp'),
+      DropdownMenuItem(label: '22.02-28.02', route: '/pLxqnrvt', isNew: true),
+      DropdownMenuItem(label: '01.03-14.03', route: '/x9t2q7wb', isNew: true),
+      DropdownMenuItem(label: '15.03-29.03', route: '/k7m2q9vz', isNew: true),
+      DropdownMenuItem(label: '29.03-10.05', route: '/l9bf3n0p', isNew: true),
     ],
 
     'Спецвипуски': [
@@ -92,16 +96,9 @@ class _NewsHomePageState extends State<NewsHomePage> {
 
   final List<CarouselItem> _carouselItems = [
     CarouselItem(
-      imagePath: 'assets/pictures/15_02-21_02/15.02-21.02.png',
-      url: '/#/qizmvUxp',
-      caption: 'Доступний випуск за 15-21 лютого!',
-      isNew: true,
-    ),
-    CarouselItem(
-      imagePath: 'assets/pictures/15_03-29_03/Титул. 15-29 бер.png',
-      url:
-          'https://tsebuleve.wiki.gg/uk/wiki/%D0%93%D0%B0%D0%B9%D0%B4_%C2%AB%D0%A0%D0%B5%D1%94%D1%81%D1%82%D1%80%D0%B0%D1%86%D1%96%D1%8F_%D0%BD%D0%B0_%D1%81%D0%B5%D1%80%D0%B2%D0%B5%D1%80%D1%96%C2%BB',
-      caption: 'Новий випуск за 15-29 березня, вже на сервері!',
+      imagePath: 'assets/pictures/29_03-10_05/Газета 29.03-10.05 Титул.png',
+      url: '/#/l9bf3n0p',
+      caption: 'Новий випуск з новим форматом!',
       isNew: true,
     ),
     CarouselItem(
