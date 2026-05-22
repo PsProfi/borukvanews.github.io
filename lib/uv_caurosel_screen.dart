@@ -89,216 +89,113 @@ class UvImagePage extends StatefulWidget {
 
 class _UvImagePageState extends State<UvImagePage> {
   Offset? _cursor;
-  bool _stickyOpen = false;
-
-  @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-  }
-
-  void _toggleSticky() => setState(() => _stickyOpen = !_stickyOpen);
 
   @override
   Widget build(BuildContext context) {
     final showUv = widget.uvActive && widget.uvOverlayAsset != null;
     final hasSticky = widget.stickyBottomAsset != null;
 
-    return SizedBox.expand(
-      child: Stack(
-        children: [
-          // ── Main image inside InteractiveViewer ─────────────────────────
-          Positioned.fill(
-            child: InteractiveViewer(
-              minScale: 1,
-              maxScale: 4,
-              child: Center(
-                child: MouseRegion(
-                  cursor: showUv ? SystemMouseCursors.none : MouseCursor.defer,
-                  onHover: showUv
-                      ? (e) => setState(() => _cursor = e.localPosition)
-                      : null,
-                  child: Listener(
-                    onPointerMove: showUv
-                        ? (e) => setState(() => _cursor = e.localPosition)
-                        : null,
-                    onPointerDown: showUv
-                        ? (e) => setState(() => _cursor = e.localPosition)
-                        : null,
-                    child: Stack(
-                      children: [
-                        AssetImageWithLoader(assetPath: widget.assetPath),
-
-                        if (showUv) ...[
-                          Positioned.fill(
-                            child: Container(
-                              color: Colors.black.withOpacity(0.45),
-                            ),
-                          ),
-                          if (_cursor != null)
-                            Positioned.fill(
-                              child: ClipPath(
-                                clipper: _CircleClipper(
-                                  center: _cursor!,
-                                  radius: widget.uvRadius,
-                                ),
-                                child: Image.asset(
-                                  widget.uvOverlayAsset!,
-                                  fit: BoxFit.contain,
-                                  width: double.infinity,
-                                  height: double.infinity,
-                                ),
-                              ),
-                            ),
-                          Positioned.fill(
-                            child: CustomPaint(
-                              painter: UvRevealPainter(
-                                cursorPos: _cursor,
-                                radius: widget.uvRadius,
-                              ),
-                            ),
-                          ),
-                        ],
-
-                        if (!showUv)
-                          Positioned.fill(
-                            child: HotspotViewLayer(
-                              hotspots: widget.hotspots,
-                              imageSize: widget.imageSize,
-                            ),
-                          ),
-                      ],
+    // The core image widget — reused in both branches
+    Widget mainImage = InteractiveViewer(
+      minScale: 1,
+      maxScale: 4,
+      child: Center(
+        child: MouseRegion(
+          cursor: showUv ? SystemMouseCursors.none : MouseCursor.defer,
+          onHover: showUv
+              ? (e) => setState(() => _cursor = e.localPosition)
+              : null,
+          child: Listener(
+            onPointerMove: showUv
+                ? (e) => setState(() => _cursor = e.localPosition)
+                : null,
+            onPointerDown: showUv
+                ? (e) => setState(() => _cursor = e.localPosition)
+                : null,
+            child: Stack(
+              children: [
+                AssetImageWithLoader(assetPath: widget.assetPath),
+                if (showUv) ...[
+                  Positioned.fill(
+                    child: Container(color: Colors.black.withOpacity(0.45)),
+                  ),
+                  if (_cursor != null)
+                    Positioned.fill(
+                      child: ClipPath(
+                        clipper: _CircleClipper(
+                          center: _cursor!,
+                          radius: widget.uvRadius,
+                        ),
+                        child: Image.asset(
+                          widget.uvOverlayAsset!,
+                          fit: BoxFit.contain,
+                          width: double.infinity,
+                          height: double.infinity,
+                        ),
+                      ),
+                    ),
+                  Positioned.fill(
+                    child: CustomPaint(
+                      painter: UvRevealPainter(
+                        cursorPos: _cursor,
+                        radius: widget.uvRadius,
+                      ),
                     ),
                   ),
-                ),
-              ),
+                ],
+                if (!showUv)
+                  Positioned.fill(
+                    child: HotspotViewLayer(
+                      hotspots: widget.hotspots,
+                      imageSize: widget.imageSize,
+                    ),
+                  ),
+              ],
             ),
           ),
+        ),
+      ),
+    );
 
-          // ── Sticky: tape tab peek + sliding attached page ───────────────
-          //
-          // When closed: only the tape-strip + tiny top-edge of the photo
-          // peeks out from the bottom — looks like a page tucked behind.
-          // When open: the page slides up ~80% of the height, its top edge
-          // overlapping the main image by ~32px, two tape strips at the top.
-          if (hasSticky)
-            Positioned(
-              left: 0,
-              right: 0,
-              bottom: 0,
-              child: GestureDetector(
-                onTap: _toggleSticky,
-                child: AnimatedSize(
-                  duration: const Duration(milliseconds: 380),
-                  curve: Curves.easeOutCubic,
-                  alignment: Alignment.bottomCenter,
-                  child: SizedBox(
-                    // Closed: show 36px (tape + tiny peek). Open: 80% of screen.
-                    height: _stickyOpen
-                        ? MediaQuery.of(context).size.height * 0.80
-                        : 36,
-                    child: Stack(
-                      clipBehavior: Clip.none,
-                      children: [
-                        // ── The photo ──────────────────────────────────────
-                        Positioned.fill(
-                          top: 0,
-                          child: Container(
-                            decoration: BoxDecoration(
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.black.withOpacity(0.35),
-                                  blurRadius: 18,
-                                  offset: const Offset(0, -4),
-                                ),
-                              ],
-                            ),
-                            child: Image.asset(
-                              widget.stickyBottomAsset!,
-                              fit: BoxFit.cover,
-                              width: double.infinity,
-                              height: double.infinity,
-                            ),
-                          ),
-                        ),
-
-                        // ── Left tape strip ────────────────────────────────
-                        Positioned(
-                          top: -10,
-                          left: MediaQuery.of(context).size.width * 0.22,
-                          child: Transform.rotate(
-                            angle: -0.06,
-                            child: Container(
-                              width: 38,
-                              height: 22,
-                              decoration: BoxDecoration(
-                                color: const Color(
-                                  0xFFD4C97A,
-                                ).withOpacity(0.72),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.black26,
-                                    blurRadius: 3,
-                                    offset: const Offset(1, 2),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
-
-                        // ── Right tape strip ───────────────────────────────
-                        Positioned(
-                          top: -10,
-                          right: MediaQuery.of(context).size.width * 0.22,
-                          child: Transform.rotate(
-                            angle: 0.05,
-                            child: Container(
-                              width: 38,
-                              height: 22,
-                              decoration: BoxDecoration(
-                                color: const Color(
-                                  0xFFD4C97A,
-                                ).withOpacity(0.72),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.black26,
-                                    blurRadius: 3,
-                                    offset: const Offset(1, 2),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
-
-                        // ── Arrow hint (only when closed) ──────────────────
-                        if (!_stickyOpen)
-                          Positioned(
-                            top: 0,
-                            left: 0,
-                            right: 0,
-                            child: Center(
-                              child: Icon(
-                                Icons.keyboard_arrow_up_rounded,
-                                size: 22,
-                                color: Colors.black45,
-                              ),
-                            ),
-                          ),
-                      ],
-                    ),
+    // ── With sticky: scrollable column, lower photo overlaps upper by 48px
+    if (hasSticky) {
+      return SizedBox.expand(
+        child: SingleChildScrollView(
+          physics: const BouncingScrollPhysics(),
+          child: Column(
+            children: [
+              SizedBox(
+                height: MediaQuery.of(context).size.height,
+                child: mainImage,
+              ),
+              Transform.translate(
+                offset: const Offset(0, -48),
+                child: Container(
+                  width: double.infinity,
+                  decoration: const BoxDecoration(
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black26,
+                        blurRadius: 16,
+                        offset: Offset(0, -4),
+                      ),
+                    ],
+                  ),
+                  child: Image.asset(
+                    widget.stickyBottomAsset!,
+                    fit: BoxFit.fitWidth,
+                    width: double.infinity,
                   ),
                 ),
               ),
-            ),
-        ],
-      ),
-    );
+            ],
+          ),
+        ),
+      );
+    }
+
+    // ── Without sticky: just the image filling the space
+    return SizedBox.expand(child: mainImage);
   }
 }
 
