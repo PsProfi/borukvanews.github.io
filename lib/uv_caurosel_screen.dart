@@ -169,22 +169,23 @@ class _UvImagePageState extends State<UvImagePage> {
                 child: mainImage,
               ),
               Transform.translate(
-                offset: const Offset(0, -48),
-                child: Container(
-                  width: double.infinity,
-                  decoration: const BoxDecoration(
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black26,
-                        blurRadius: 16,
-                        offset: Offset(0, -4),
-                      ),
-                    ],
-                  ),
-                  child: Image.asset(
-                    widget.stickyBottomAsset!,
-                    fit: BoxFit.fitWidth,
-                    width: double.infinity,
+                offset: const Offset(0, -200),
+                child: Center(
+                  child: Container(
+                    width: MediaQuery.of(context).size.width * 0.3,
+                    decoration: const BoxDecoration(
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.transparent,
+                          blurRadius: 0,
+                          offset: Offset(0, -10),
+                        ),
+                      ],
+                    ),
+                    child: Image.asset(
+                      widget.stickyBottomAsset!,
+                      fit: BoxFit.fitWidth,
+                    ),
                   ),
                 ),
               ),

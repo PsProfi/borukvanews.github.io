@@ -36,11 +36,12 @@ class _UvFirstScreenState extends UvCarouselScreenState<UvFirstScreen> {
       'assets/pictures/29_03-10_05/Газета 29.03-10.05 Титул невидимка.png',
     ),
     // Example: page with a UV overlay
-    UvPageItem.withUv(
+    UvPageItem.full(
       const PageItem.image(
         'assets/pictures/29_03-10_05/Газета 29.03-10.05 стор. 1.png',
       ),
       'assets/pictures/29_03-10_05/Газета 29.03-10.05 стор. 1 невидимка.png',
+      'assets/pictures/29_03-10_05/Газета 29.03-10.05 стор. 1 додаток – фінальна.png',
     ),
     const UvPageItem.withUv(
       PageItem.image(
